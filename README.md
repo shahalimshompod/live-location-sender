@@ -53,7 +53,7 @@ The **Live Location Tracker App** allows real-time monitoring of geographic loca
 
 ## 🛠️ Installation
 
-> Prerequisites: Node.js (v24 or later), npm or yarn
+> Prerequisites: Node.js (v18 or later), npm or yarn
 
 1. **Clone the repository**:
    ```bash
@@ -61,3 +61,9 @@ The **Live Location Tracker App** allows real-time monitoring of geographic loca
    cd live-location-tracker-app
    ```
 
+2. **Clone the repository**:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
