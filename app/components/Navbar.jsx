@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     // I used daisy ui (tailwind based component library) for this navbar
-    <div className=" bg-[#0A0A0A] shadow-sm p-2 lg:p-0">
+    <div className=" bg-[#0A0A0A] shadow-sm py-1 px-2 lg:px-0">
       <div className="flex items-center container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
