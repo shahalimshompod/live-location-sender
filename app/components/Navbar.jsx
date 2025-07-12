@@ -72,7 +72,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="text-base md:text-xl xl:text-3xl font-bold">
+          <a href="/" className="text-base md:text-xl xl:text-3xl font-bold">
             Live Location Reader
           </a>
         </div>
