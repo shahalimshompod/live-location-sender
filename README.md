@@ -12,6 +12,10 @@ A real-time web application for live location tracking built with Next.js, Leafl
   - [✨ Features](#-features)
   - [⚙️ Tech Stack](#️-tech-stack)
   - [🛠️ Installation](#️-installation)
+  - [⚙️ Configuration:](#️-configuration)
+  - [💡 Examples](#-examples)
+  - [🧩 Troubleshooting](#-troubleshooting)
+  - [⚖️ Limitations and Tradeoffs](#️-limitations-and-tradeoffs)
 
 ---
 
@@ -76,6 +80,62 @@ The **Live Location Tracker App** allows real-time monitoring of geographic loca
    ```
 
 4. **Open in Browser**:
-```bash
-http://localhost:3000
-```
+   ```bash
+   http://localhost:3000
+   ```
+
+
+**Framework & Libraries:**
+
+- Use the app to track users or assets in real time.
+- Ensure a SignalR-compatible server is running and integrated with your frontend (custom logic required).
+- Customize the Leaflet map and UI as needed for your use case.
+
+
+## ⚙️ Configuration:
+
+**You may need to configure:**
+
+- SignalR connection URL (likely in a .env.local or config file)
+- Map center/default zoom level in your React Leaflet component
+- Backend SignalR hub to emit location data
+
+   **Environment Variables (example):**
+   ```bash
+   http://localhost:3000
+   ```
+
+
+## 💡 Examples
+
+**Render Map with Live Marker (conceptual example):**
+  ```bash
+   <MapContainer center={[0, 0]} zoom={13}>
+     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+     <Marker position={[latitude, longitude]} />
+   </MapContainer>
+  ```
+
+**Connect to SignalR Hub:**
+  ```bash
+   const connection = new HubConnectionBuilder()
+  .withUrl(process.env.NEXT_PUBLIC_SIGNALR_URL)
+  .withAutomaticReconnect()
+  .build();
+  ```
+
+
+## 🧩 Troubleshooting
+
+- **Map not loading:** Ensure correct Leaflet CSS import.
+- **No location updates:** Verify backend SignalR server is running and accessible.
+- **CORS issues:** Configure proper headers on your SignalR backend.
+- **TailwindCSS not working:** Check next.config.js and PostCSS(global.css) integration.
+
+
+## ⚖️ Limitations and Tradeoffs
+
+- **SignalR Required:** The app assumes a working SignalR server; it's not included.
+- **No Offline Support:** Does not support offline caching of location data.
+- **Frontend Only:** This repo focuses on the frontend; backend implementation is up to you.
+- **Map Performance:** High-frequency updates with many markers may degrade performance.
