@@ -64,7 +64,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/users"
+                  href="/pages/users"
                   className={getLinkClass("/users", pathname)}
                 >
                   Users
@@ -72,7 +72,9 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="text-base md:text-xl xl:text-3xl font-bold">Live Location Reader</a>
+          <a className="text-base md:text-xl xl:text-3xl font-bold">
+            Live Location Reader
+          </a>
         </div>
 
         <div className="navbar-center hidden lg:flex">
@@ -100,7 +102,10 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/users" className={getLinkClass("/users", pathname)}>
+              <Link
+                href="/pages/users"
+                className={getLinkClass("/users", pathname)}
+              >
                 Users
               </Link>
             </li>
