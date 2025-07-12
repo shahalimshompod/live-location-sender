@@ -76,6 +76,6 @@ The **Live Location Tracker App** allows real-time monitoring of geographic loca
    ```
 
 4. **Open in Browser**:
-5. ```bash
+```bash
 http://localhost:3000
 ```
