@@ -2,7 +2,15 @@
 import useSignalR from "@/app/hooks/useSignalR";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaUser, FaMapPin, FaHistory, FaClock, FaSignal } from "react-icons/fa";
+import {
+  FaUser,
+  FaMapPin,
+  FaHistory,
+  FaClock,
+  FaSignal,
+  FaPaperPlane,
+  FaMapMarkedAlt,
+} from "react-icons/fa";
 
 export default function Page() {
   const [lat, setLat] = useState("Generating...");
@@ -13,21 +21,23 @@ export default function Page() {
   const [connected, setConnected] = useState(false);
   const [mapBtn, setMapBtn] = useState(false);
 
+  // initializing signalR
   const { sendLatLon } = useSignalR(() => {}, setConnected);
 
-  // manual sender through button
+  // lat, lon sending function
   const sendNow = () => {
+    // random location in dhaka
     const newLat = 23.78 + Math.random() * 0.01;
     const newLon = 90.4 + Math.random() * 0.01;
 
-    sendLatLon(newLat, newLon, "sompod@example.com"); // Replace with your real email
-    console.log("📤 Sent:", newLat, newLon);
+    sendLatLon(newLat, newLon, "shahalimsompod@gmail.com");
 
     const now = new Date();
     setLastSent(now.toLocaleString());
     setLat(newLat.toFixed(6));
     setLon(newLon.toFixed(6));
 
+    // setting data in history for showing last five history
     setHistory((prev) => {
       const updated = [
         { lat: newLat, lon: newLon, time: now.toLocaleTimeString() },
@@ -37,6 +47,7 @@ export default function Page() {
     });
   };
 
+  // auto send data
   useEffect(() => {
     if (!autoSend) return;
     const interval = setInterval(() => {
@@ -74,7 +85,7 @@ export default function Page() {
         <p className="flex items-center gap-2 text-gray-600">
           <FaSignal className={connected ? "text-green-500" : "text-red-500"} />
           <span>Status:</span>
-          <span>{connected ? "Connected ✅" : "Disconnected ❌"}</span>
+          <span>{connected ? "Connected" : "Disconnected"}</span>
         </p>
 
         <div className="flex items-center gap-3">
@@ -90,9 +101,9 @@ export default function Page() {
           {!autoSend && (
             <button
               onClick={sendNow}
-              className="bg-transparent border border-base-100 hover:bg-base-100 text-white text-sm px-4 py-2 cursor-pointer"
+              className="bg-transparent border border-base-100 hover:bg-base-100 text-white text-sm px-4 py-2 cursor-pointer flex items-center gap-2"
             >
-              📤 Send Now
+              <FaPaperPlane /> Send Now
             </button>
           )}
         </div>
@@ -114,8 +125,10 @@ export default function Page() {
             )}
           </ul>
         </div>
+
         {mapBtn && (
-          <button className="btn w-full bg-transparent hover:bg-base-100 border border-base-100 rounded-none">
+          <button className="btn w-full bg-transparent hover:bg-base-100 border border-base-100 rounded-none flex items-center justify-center gap-2">
+            <FaMapMarkedAlt />
             <Link target="_blank" href={"/pages/user_b"}>
               View Location In Map
             </Link>

@@ -9,7 +9,7 @@ const useSignalR = (receiveLatLon) => {
   useEffect(() => {
     // making connection with the connection link provided
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://tech-test.raintor.com/Hub")
+      .withUrl("/api/signalr") //proxy url (cors issue)
       .withAutomaticReconnect()
       .build();
 
