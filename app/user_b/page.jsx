@@ -1,24 +1,37 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
-// Import icons
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaGlobeAsia } from "react-icons/fa";
 import { MdAccessTime, MdMergeType } from "react-icons/md";
 import useSignalR from "../hooks/useSignalR";
-import Map from "../components/Map";
+import dynamic from "next/dynamic";
 
-export default function UserB() {
+// Dynamically import the Map component with SSR disabled
+const Map = dynamic(() => import("../components/Map"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[500px] w-full bg-gray-200 flex items-center justify-center">
+      Loading map...
+    </div>
+  ),
+});
+
+const UserB = () => {
+  // states
+  const [isClient, setIsClient] = useState(false);
   const [location, setLocation] = useState({ lat: 23.78, lon: 90.4 });
   const [lastUpdated, setLastUpdated] = useState(null);
   const [locationName, setLocationName] = useState("Fetching...");
   const [locationType, setLocationType] = useState({});
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  //   getting extra info
+  // getting extra info
   const locationCategory = locationType?.category;
   const addressType = locationType?.addressType;
 
-  // 🔌 SignalR listener
+  // SignalR listener
   useSignalR((payload) => {
     if (payload?.lat && payload?.lon) {
       if (payload?.userName === "shahalimsompod@gmail.com") {
@@ -39,7 +52,6 @@ export default function UserB() {
         if (data?.display_name) {
           setLocationName(data.display_name);
           setLocationType(data);
-          console.log(data);
         } else {
           setLocationName("Location name not found");
         }
@@ -53,6 +65,14 @@ export default function UserB() {
       getLocationName(location.lat, location.lon);
     }
   }, [location.lat, location.lon]);
+
+  if (!isClient) {
+    return (
+      <div className="min-h-[94vh] flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[94vh] flex flex-col items-center justify-center p-6">
@@ -126,4 +146,6 @@ export default function UserB() {
       </div>
     </div>
   );
-}
+};
+
+export default UserB;

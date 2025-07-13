@@ -1,50 +1,40 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
 
 const useSignalR = (receiveLatLon) => {
   const connectionRef = useRef(null);
 
   useEffect(() => {
-    // Check if running in production or development
-    const isProd =
-      typeof window !== "undefined" && window.location.hostname !== "localhost";
+    // Only run on client-side
+    if (typeof window === "undefined") return;
 
-    // Set the correct SignalR hub URL depending on environment
+    const isProd = window.location.hostname !== "localhost";
     const hubUrl = isProd
-      ? "https://tech-test.raintor.com/Hub" // Production URL
-      : "/api/signalr"; // Local dev proxy path
+      ? "https://tech-test.raintor.com/Hub"
+      : "/api/signalr";
 
-    // Build SignalR connection with automatic reconnect
+    // making connection
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(hubUrl)
       .withAutomaticReconnect()
       .build();
 
-    // Start the connection and listen for messages
+    // using connection
     connection
       .start()
       .then(() => {
-        console.log("SignalR connected");
-
-        // Handle incoming data from the server
-        connection.on("receiveLatLon", (payload) => {
-          console.log("Payload received:", payload);
-          receiveLatLon(payload); // Pass data to callback
-        });
-
-        // Save connection reference for later use
+        console.log("SignalR Connected");
+        connection.on("receiveLatLon", receiveLatLon);
         connectionRef.current = connection;
       })
-      .catch((err) => console.error("SignalR error ->", err));
+      .catch(console.error);
 
-    // Clean up connection on component unmount
     return () => {
       if (connection) connection.stop();
     };
-  }, []);
+  }, [receiveLatLon]);
 
-  // Send data to the server
   const sendLatLon = (lat, lon, userName) => {
     if (connectionRef.current) {
       connectionRef.current.invoke("sendLatLon", lat, lon, userName);
