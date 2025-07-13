@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
 

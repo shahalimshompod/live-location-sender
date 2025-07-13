@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-// 🧩 Import icons
+// Import icons
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaGlobeAsia } from "react-icons/fa";
 import { MdAccessTime, MdMergeType } from "react-icons/md";
