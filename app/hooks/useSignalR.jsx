@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
+import { HttpTransportType } from "@microsoft/signalr";
 
 const useSignalR = (receiveLatLon) => {
   const connectionRef = useRef(null);
 
   useEffect(() => {
-    // Only run on client-side
     if (typeof window === "undefined") return;
 
     const isProd = window.location.hostname !== "localhost";
@@ -14,13 +14,14 @@ const useSignalR = (receiveLatLon) => {
       ? "https://tech-test.raintor.com/Hub"
       : "/api/signalr";
 
-    // making connection
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(hubUrl)
+      .withUrl(hubUrl, {
+        transport: HttpTransportType.WebSockets, // use WebSocket only
+        withCredentials: true, // allow secure cookies if needed
+      })
       .withAutomaticReconnect()
       .build();
 
-    // using connection
     connection
       .start()
       .then(() => {
@@ -28,7 +29,22 @@ const useSignalR = (receiveLatLon) => {
         connection.on("receiveLatLon", receiveLatLon);
         connectionRef.current = connection;
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Failed to connect:", err);
+      });
+
+    // 🔄 Connection status listeners
+    connection.onclose((err) => {
+      console.warn("🔌 SignalR disconnected", err);
+    });
+
+    connection.onreconnecting((err) => {
+      console.warn("SignalR reconnecting...", err);
+    });
+
+    connection.onreconnected(() => {
+      console.log("SignalR reconnected");
+    });
 
     return () => {
       if (connection) connection.stop();
