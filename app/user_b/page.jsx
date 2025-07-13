@@ -1,12 +1,12 @@
 "use client";
-import Map from "@/app/components/Map";
-import useSignalR from "@/app/hooks/useSignalR";
 import React, { useEffect, useState } from "react";
 
 // 🧩 Import icons
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaGlobeAsia } from "react-icons/fa";
 import { MdAccessTime, MdMergeType } from "react-icons/md";
+import useSignalR from "../hooks/useSignalR";
+import Map from "../components/Map";
 
 export default function UserB() {
   const [location, setLocation] = useState({ lat: 23.78, lon: 90.4 });

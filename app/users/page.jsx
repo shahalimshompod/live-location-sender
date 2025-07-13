@@ -1,10 +1,10 @@
 "use client";
 
-import UserCard from "@/app/components/UserCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import UserCard from "../components/UserCard";
 
 const fetchUserData = async ({ pageParam = 0 }) => {
   const res = await axios.get(

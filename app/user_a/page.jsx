@@ -1,5 +1,4 @@
 "use client";
-import useSignalR from "@/app/hooks/useSignalR";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -11,6 +10,7 @@ import {
   FaPaperPlane,
   FaMapMarkedAlt,
 } from "react-icons/fa";
+import useSignalR from "../hooks/useSignalR";
 
 export default function Page() {
   const [lat, setLat] = useState("Generating...");

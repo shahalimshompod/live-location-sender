@@ -47,16 +47,16 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/pages/user_a"
-                  className={getLinkClass("/pages/user_a", pathname)}
+                  href="/user_a"
+                  className={getLinkClass("/user_a", pathname)}
                 >
                   User-A (Location Sender)
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/pages/user_b"
-                  className={getLinkClass("/pages/user_b", pathname)}
+                  href="/user_b"
+                  className={getLinkClass("/user_b", pathname)}
                   target="_blank"
                 >
                   User-B (Map)
@@ -64,7 +64,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/pages/users"
+                  href="/users"
                   className={getLinkClass("/users", pathname)}
                 >
                   Users
@@ -73,7 +73,7 @@ const Navbar = () => {
             </ul>
           </div>
           <a href="/" className="text-base md:text-xl xl:text-3xl font-bold">
-            Live Location Reader
+            Live Location Tracker
           </a>
         </div>
 
@@ -86,16 +86,16 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/pages/user_a"
-                className={getLinkClass("/pages/user_a", pathname)}
+                href="/user_a"
+                className={getLinkClass("/user_a", pathname)}
               >
                 User-A (Location Sender)
               </Link>
             </li>
             <li>
               <Link
-                href="/pages/user_b"
-                className={getLinkClass("/pages/user_b", pathname)}
+                href="/user_b"
+                className={getLinkClass("/user_b", pathname)}
                 target="_blank"
               >
                 User-B (Map)
@@ -103,7 +103,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/pages/users"
+                href="/users"
                 className={getLinkClass("/users", pathname)}
               >
                 Users
